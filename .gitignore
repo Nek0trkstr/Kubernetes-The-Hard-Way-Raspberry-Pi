@@ -1,3 +1,4 @@
 *.csr
 *.pem
 *.kubeconfig
+encryption-config.yaml
