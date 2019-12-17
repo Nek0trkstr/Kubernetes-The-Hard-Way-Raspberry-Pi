@@ -1,6 +1,9 @@
 #!/bin/bash
 # Configure a worker node
 
+HOSTNAME=$(hostname)
+
+# Download binaries
 wget -q --show-progress --https-only --timestamping \
   https://github.com/kubernetes-incubator/cri-tools/releases/download/v1.0.0-beta.0/crictl-v1.0.0-beta.0-linux-arm.tar.gz \
   https://github.com/containernetworking/plugins/releases/download/v0.6.0/cni-plugins-arm-v0.6.0.tgz \
@@ -19,18 +22,18 @@ sudo mkdir -p \
 chmod +x kubectl kube-proxy kubelet
 sudo mv kubectl kube-proxy kubelet  /usr/local/bin/
 
+# Install docker
 curl -fsSL get.docker.com | sh
 sudo usermod -aG docker pi
 echo "deb https://download.docker.com/linux/raspbian/ stretch stable" | sudo tee -a /etc/apt/sources.list
 sudo apt-get update
 sudo systemctl start 
 
-# Kubelet config
+# Config kubelet
 sudo dphys-swapfile swapoff
 sudo dphys-swapfile uninstall
 sudo update-rc.d dphys-swapfile remove
 
-HOSTNAME=$(hostname)
 sudo mv ${HOSTNAME}-key.pem ${HOSTNAME}.pem /var/lib/kubelet/
 sudo mv ${HOSTNAME}.kubeconfig /var/lib/kubelet/kubeconfig
 sudo mv ca.pem /var/lib/kubernetes/
@@ -81,7 +84,7 @@ RestartSec=5
 WantedBy=multi-user.target
 EOF
 
-# Kube-Proxy
+# Config kube-proxy
 sudo mv kube-proxy.kubeconfig /var/lib/kube-proxy/kubeconfig
 cat << EOF | sudo tee /var/lib/kube-proxy/kube-proxy-config.yaml
 kind: KubeProxyConfiguration
