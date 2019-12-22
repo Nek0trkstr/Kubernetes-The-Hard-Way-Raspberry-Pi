@@ -21,6 +21,8 @@ sudo mkdir -p \
 
 chmod +x kubectl kube-proxy kubelet
 sudo mv kubectl kube-proxy kubelet  /usr/local/bin/
+sudo tar -xvf crictl-v1.0.0-beta.0-linux-arm.tar.gz  -C /usr/local/bin/
+sudo tar -xvf cni-plugins
 
 # Install docker
 curl -fsSL get.docker.com | sh
