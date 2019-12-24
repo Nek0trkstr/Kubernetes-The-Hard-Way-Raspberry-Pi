@@ -1,4 +1,4 @@
-##Generating an CA and certificates for k8s cluster.
+## Generating an CA and certificates for k8s cluster.
 
 First install **cfssl**:
 ```
