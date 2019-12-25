@@ -1,0 +1,17 @@
+{
+    "CN": "system:kube-proxy",
+    "key": {
+      "algo": "rsa",
+      "size": 2048
+    },
+    "names": [
+      {
+        "C": "IL",
+        "L": "Tel-Aviv",
+        "O": "system:node-proxier",
+        "OU": "Kubernetes the Hard Way",
+        "ST": "Merkaz"
+      }
+    ]
+  }
+  
