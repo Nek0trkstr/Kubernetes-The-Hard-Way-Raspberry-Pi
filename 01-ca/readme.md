@@ -1,6 +1,6 @@
 ## Generating an CA and certificates for k8s cluster.
 
-First install **cfssl**:
+First, install **cfssl**:
 ```
 brew install cfssl
 ```

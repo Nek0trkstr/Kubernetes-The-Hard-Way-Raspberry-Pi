@@ -2,14 +2,14 @@
 # Generate kube-scheduler kubeconfig
 
 kubectl config set-cluster kubernetes-the-hard-way \
-    --certificate-authority="../ca/ca.pem" \
+    --certificate-authority="../01-ca/ca.pem" \
     --embed-certs=true \
     --server=https://127.0.0.1:6443 \
     --kubeconfig=kube-scheduler.kubeconfig
 
 kubectl config set-credentials system:kube-scheduler \
-    --client-certificate="../ca/kube-scheduler.pem" \
-    --client-key="../ca/kube-scheduler-key.pem" \
+    --client-certificate="../01-ca/kube-scheduler.pem" \
+    --client-key="../01-ca/kube-scheduler-key.pem" \
     --embed-certs=true \
     --kubeconfig=kube-scheduler.kubeconfig
 

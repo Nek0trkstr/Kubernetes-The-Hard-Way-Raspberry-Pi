@@ -4,6 +4,7 @@
 sudo sysctl net.ipv4.conf.all.forwarding=1
 echo "net.ipv4.conf.all.forwarding=1" | sudo tee -a /etc/sysctl.conf
 sudo rpi-update # Needed for weave net
+sudo apt-get install socat # Needed for port-forwarding
 
 # from client machine
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')&env.IPALLOC_RANGE=10.200.0.0/16"
@@ -40,4 +41,4 @@ POD_NAME=$(kubectl get pods -l run=busybox -o jsonpath="{.items[0].metadata.name
 
 # TODO for each nginx endpoint test connection from busybox pod
 kubectl get ep nginx
-kubectl exec -ti $POD_NAME -- wget -O <EP_ADDRESS>
+kubectl exec -ti $POD_NAME -- wget -O testfilename <EP_ADDRESS>

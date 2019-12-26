@@ -2,7 +2,8 @@
 We will test most easily broken k8s features
 
 ## Data encryption
-Create a secret
+Validate that data is encrypted at rest.
+Create a secret.
 ```
 kubectl create secret generic kubernetes-the-hard-way --from-literal="mykey=mydata"
 ```
@@ -38,12 +39,13 @@ Should get encrypted data like this:
 **k8s:enc:aescbc** - check that it's appear on right side of the window
 
 ## Deployments
-Create a pod
+Check if deployments are working properly.
+Create a pod.
 ```
 kubectl run nginx --image=nginx
 ```
 
-Validate that nginx pod started
+Validate that nginx pod started.
 ```
 kubectl get pods -l run=nginx
 ```
@@ -51,3 +53,39 @@ kubectl get pods -l run=nginx
 Look for ready state of pods
 NAME                     READY     STATUS    RESTARTS   AGE
 nginx-65899c769f-b8r2j   1/1       Running   0          9s
+
+## Port-Forwarding
+Use same pod as in deployments smoke-test
+```
+POD_NAME=$(kubectl get pods -l run=nginx -o jsonpath="{.items[0].metadata.name}")
+kubectl port-forward $POD_NAME 8081:80
+curl http://localhost:8081
+```
+
+## Logs
+Logs are working as expected.
+```
+kubectl logs $POD_NAME
+```
+
+## Exec
+Check if you are able to execute command inside a pod
+```
+kubectl exec -ti $POD_NAME -- nginx -
+```
+
+## Services
+Check that services are working properly and are exposing pods
+```
+kubectl expose deployment nginx --port 80 --type NodePort
+NODE_PORT=$(kubectl get service -l run=nginx -o jsonpath="{.items[0].spec.ports[0].nodePort}")
+curl http://k8s-node-1:$NODE_PORT
+```
+
+## Cleanup
+Delete resources created for smoke tests
+```
+kubectl delete secret kubernetes-the-hard-way
+kubectl delete svc nginx
+kubectl delete deployment nginx
+```

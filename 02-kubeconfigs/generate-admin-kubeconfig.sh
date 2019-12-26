@@ -2,14 +2,14 @@
 # Generate kubeadmin kubeconfig
 
 kubectl config set-cluster kubernetes-the-hard-way \
-    --certificate-authority="../ca/ca.pem" \
+    --certificate-authority="../01-ca/ca.pem" \
     --embed-certs=true \
     --server=https://127.0.0.1:6443 \
     --kubeconfig=admin.kubeconfig
 
 kubectl config set-credentials admin \
-    --client-certificate="../ca/admin.pem" \
-    --client-key="../ca/admin-key.pem" \
+    --client-certificate="../01-ca/admin.pem" \
+    --client-key="../01-ca/admin-key.pem" \
     --embed-certs=true \
     --kubeconfig=admin.kubeconfig
 
