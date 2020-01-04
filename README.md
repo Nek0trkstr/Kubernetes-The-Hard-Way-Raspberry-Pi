@@ -1,5 +1,5 @@
 # Kubernetes The Hard Way on Raspberry Pi
-[Kubernetes Logo](https://kubernetes.io/images/kubernetes-horizontal-color.png)
+![Kubernetes Logo](https://kubernetes.io/images/kubernetes-horizontal-color.png)
 This repository will guide you through installing and configuring k8s cluster.
 After completing the lab you will have a better understaing of k8s internal components.
 If you just want to install a cluster on your raspberry pi see Rancher's [k3s](https://k3s.io/)
